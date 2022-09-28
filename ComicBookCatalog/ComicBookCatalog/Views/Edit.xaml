@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             xmlns:c="clr-namespace:ComicBookCatalog.Views.Controls"
+             xmlns:vm="clr-namespace:ComicBookCatalog.ViewModels"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             StyleId="EditPage"
+             Shell.NavBarIsVisible="False" 
+             Shell.PresentationMode="Animated"
+             x:Class="ComicBookCatalog.Views.Edit">
+    <ContentPage.BindingContext>
+        <vm:Edit />
+    </ContentPage.BindingContext>    
+    <ContentPage.Content>
+        <Frame IsVisible="{Binding IsLoaded}" StyleId="AboutPageWrapper">
+            <Frame.Content>
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button Text="&#xf053;" 
+                        FontFamily="_FA900" 
+                        StyleClass="PageBackButton"                             
+                        Grid.Row="0" 
+                        Command="{Binding GoBack}"
+                        HorizontalOptions="Start" />
+                    <Button Grid.Row="0"
+                        Text="&#xf0c7;" 
+                        FontFamily="_FA900" 
+                        StyleClass="ToolbarButton"     
+                        Command="{Binding Save}"
+                        HorizontalOptions="End" />
+                    <ScrollView Grid.Row="1">
+                        <StackLayout Padding="10,10,10,50" BackgroundColor="#FFF">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Command="{Binding TakeCoverPicture}" 
+                                    Grid.Column="0"
+                                    Text="&#xf030;" 
+                                    FontFamily="_FA900" 
+                                    FontSize="24"
+                                    BackgroundColor="Transparent"                             
+                                    HorizontalOptions="End"
+                                    TextColor="#333" />
+
+                                <ffimageloading:CachedImage Source="{Binding CoverImage}" 
+                                    Grid.Column="1"    
+                                    Margin="10"
+                                    HeightRequest="120" 
+                                    WidthRequest="120"                         
+                                    HorizontalOptions="Center"
+                                    LoadingPlaceholder="placeholder.jpg"
+                                    ErrorPlaceholder="placeholder.jpg"> 
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:CircleTransformation BorderSize="8" BorderHexColor="#ffffff" />
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+
+                                <Button Command="{Binding SelectCoverImage}" 
+                                    Grid.Column="2"
+                                    Text="&#xf03e;" 
+                                    FontFamily="_FA900" 
+                                    FontSize="24"
+                                    Margin="10,0,10,0"
+                                    BackgroundColor="Transparent"                             
+                                    HorizontalOptions="Start"
+                                    TextColor="#333"/>
+                            </Grid>
+                            <c:LabelRegular Text="Title" StyleClass="EditPageLabel" />
+                            <Entry Text="{Binding ComicBook.Title, Mode=TwoWay}" Keyboard="Text" ClearButtonVisibility="WhileEditing" />
+                            <c:LabelRegular Text="Series" StyleClass="EditPageLabel" />
+                            <Entry Text="{Binding ComicBook.Series, Mode=TwoWay}" Keyboard="Text" ClearButtonVisibility="WhileEditing" />
+                            <c:LabelRegular Text="Volume/Issue"  StyleClass="EditPageLabel"/>
+                            <Entry Text="{Binding ComicBook.Volume, Mode=TwoWay}" Keyboard="Numeric" ClearButtonVisibility="WhileEditing" />
+                            <c:LabelRegular Text="Writers"  StyleClass="EditPageLabel"/>
+                            <Entry Text="{Binding ComicBook.Writers, Mode=TwoWay}" Keyboard="Text" Placeholder="Comma separated values"  ClearButtonVisibility="WhileEditing" />
+
+                            <Button Command="{Binding ToggleExtraFieldVisibility}" 
+                                    IsVisible="{Binding IsToggleExtraFieldVisibilityButtonVisible}" 
+                                    Text="More" 
+                                    StyleId="EditPageToggleButton" />
+
+                            <StackLayout  IsVisible="{Binding AreExtraFieldsVisible}">
+                                <c:LabelRegular Text="Brand"  StyleClass="EditPageLabel"/>
+                                <Entry Text="{Binding ComicBook.Brand, Mode=TwoWay}" Keyboard="Text" Placeholder="ex. Marvel Now! 2.0"  ClearButtonVisibility="WhileEditing" />
+                                <c:LabelRegular Text="Publisher" StyleClass="EditPageLabel" />
+                                <Entry Text="{Binding ComicBook.Publisher, Mode=TwoWay}" Keyboard="Text" Placeholder="ex. Marvel"  ClearButtonVisibility="WhileEditing" />
+                                <c:LabelRegular Text="Url" StyleClass="EditPageLabel"/>
+                                <Entry Text="{Binding ComicBook.Url, Mode=TwoWay}" Keyboard="Url" Placeholder="Store or publisher url: https://example.org"  ClearButtonVisibility="WhileEditing" />
+                                <c:LabelRegular Text="ISBN"  StyleClass="EditPageLabel"/>
+                                <Entry Text="{Binding ComicBook.ISBN, Mode=TwoWay}" ClearButtonVisibility="WhileEditing" />
+                                <c:LabelRegular Text="Language"  StyleClass="EditPageLabel"/>
+                                <Entry Text="{Binding ComicBook.Language, Mode=TwoWay}" Keyboard="Text" Placeholder="Two letters language code"  ClearButtonVisibility="WhileEditing" />
+                                <c:LabelRegular Text="Note"  StyleClass="EditPageLabel"/>
+                                <Editor Text="{Binding ComicBook.Note, Mode=TwoWay}" HeightRequest="100" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+            </Frame.Content>
+        </Frame>
+    </ContentPage.Content>   
+</ContentPage>

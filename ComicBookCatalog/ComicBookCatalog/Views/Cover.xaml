@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
+             xmlns:vm="clr-namespace:ComicBookCatalog.ViewModels" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             xmlns:c="clr-namespace:ComicBookCatalog.Views.Controls"
+             Shell.NavBarIsVisible="False" 
+             x:Class="ComicBookCatalog.Views.Cover"
+             StyleId="CoverPage">
+    <ContentPage.BindingContext>
+        <vm:Cover />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Frame IsVisible="{Binding IsLoaded}" StyleId="DetailsPageWrapper">
+            <Frame.Content>
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Button Text="&#xf053;" 
+                        FontFamily="_FA900" 
+                        StyleClass="PageBackButton" 
+                        Grid.Row="0" 
+                        Command="{Binding GoBack}"
+                        HorizontalOptions="Start" />
+                    <ffimageloading:CachedImage 
+                        Grid.Row="1"
+                        Source="{Binding ComicBook.CoverImage}"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand" />
+                    <c:LabelRegular Text="{Binding ComicBook.Title}"
+                        Grid.Row="2"
+                        HorizontalOptions="Center" 
+                        Margin="20" 
+                        TextColor="#FFF" />
+                </Grid>
+            </Frame.Content>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

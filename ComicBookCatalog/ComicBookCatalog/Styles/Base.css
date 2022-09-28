@@ -1,0 +1,59 @@
+﻿/* Style bazowe */
+
+^ContentPage {
+    padding: 0;
+}
+
+Entry {
+    color: #000;
+    background-color: #FFF;
+    font-size: 12;
+    border-color: #333;
+    border-width: 1;
+    border-style: dotted;
+}
+
+Editor {
+    color: #000;
+    background-color: #FFF;
+    font-size: 12;
+    border-color: #333;
+    border-width: 1;
+    border-style: dotted;
+}
+
+ActivityIndicator {
+    color: #DD7373;
+}
+
+.PageMenuButton {
+    font-size: 22;
+    width: 40;
+    color: #2c3e50;
+    background-color: transparent;
+}
+
+.PageBackButton {
+    font-size: 26;
+    color: #fff;
+    background-color: transparent;
+    text-align: start;
+    width: 50; 
+    margin: 0,5;
+}
+
+.PageMenuLabel {
+    font-size: 12;
+    margin: -10;
+    color: #333;
+    text-align: center;
+}
+
+.ToolbarButton {
+    font-size: 26;
+    color: #fff;
+    background-color: transparent;
+    text-align: end;
+    width: 50;
+    margin: 0,5;
+}

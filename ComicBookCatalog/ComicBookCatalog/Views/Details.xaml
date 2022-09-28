@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:c="clr-namespace:ComicBookCatalog.Views.Controls"
+             xmlns:vm="clr-namespace:ComicBookCatalog.ViewModels"             
+             mc:Ignorable="d"
+             StyleId="DetailsPage"
+             Shell.NavBarIsVisible="False" 
+             BackgroundImageSource="{Binding ComicBook.CoverImage}"             
+             x:Class="ComicBookCatalog.Views.Details">
+    <ContentPage.BindingContext>
+        <vm:Details />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Frame IsVisible="{Binding IsLoaded}" StyleId="DetailsPageWrapper">
+            <Frame.Content>
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button Text="&#xf053;" 
+                        FontFamily="_FA900" 
+                        StyleClass="PageBackButton" 
+                        Grid.Row="0" 
+                        Command="{Binding GoBack}"
+                        HorizontalOptions="Start" />
+
+                    <StackLayout StyleId="DetailsPageContentHeader" Grid.Row="1">
+                        <c:LabelBlack Text="{Binding ComicBook.Publisher, StringFormat='Publisher: {0}'}" StyleId="DetailsPageHeaderPublisher"/>
+                        <c:LabelBold Text="{Binding ComicBook.Brand, StringFormat='Brand: {0}'}" StyleId="DetailsPageHeaderBrand"/>
+                        <c:LabelRegular Text="{Binding ComicBook.Language, StringFormat='Language: {0}'}" StyleId="DetailsPageHeaderLanguage"/>
+                    </StackLayout>
+            
+                    <StackLayout StyleId="DetailsPageContentBody" Grid.Row="2">
+                        <Grid ColumnSpacing="0" StyleId="DetailsPageContentMenu">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="34" />
+                                <RowDefinition Height="16" />
+                            </Grid.RowDefinitions>
+                            <Button Text="&#xf004;" 
+                                FontFamily="_FA900" 
+                                StyleClass="PageMenuButton"
+                                FontSize="14"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                TextColor="{Binding FavoriteButtonColor}"
+                                Command="{Binding ToggleFavorite}" />
+                            <Label Text="Favorite" Grid.Row="1" Grid.Column="0" StyleClass="PageMenuLabel"/>
+                            <Button Text="&#xf02e;" 
+                                FontFamily="_FA900" 
+                                StyleClass="PageMenuButton"
+                                FontSize="14"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                TextColor="{Binding OnBookShelfButtonColor}"
+                                Command="{Binding ToggleOnBookShelf}"  />
+                            <Label Text="On shelf" Grid.Row="1" Grid.Column="1" StyleClass="PageMenuLabel"/>
+                            <Button Text="&#xf303;" 
+                                FontFamily="_FA900" 
+                                StyleClass="PageMenuButton"     
+                                FontSize="14"
+                                Grid.Row="0" 
+                                Grid.Column="2"
+                                Command="{Binding Edit}" />
+                            <Label Text="Edit" Grid.Row="1" Grid.Column="2" StyleClass="PageMenuLabel"/>
+                            <Button Text="&#xf7a2;" 
+                                FontFamily="_FA900" 
+                                StyleClass="PageMenuButton"                            
+                                FontSize="14"
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Command="{Binding GoToUrl}" />
+                            <Label Text="Website" Grid.Row="1" Grid.Column="3" StyleClass="PageMenuLabel"/>
+                            <Button Text="&#xf03e;" 
+                                FontFamily="_FA900" 
+                                StyleClass="PageMenuButton"                            
+                                FontSize="14"
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Command="{Binding DisplayCoverImage}" />
+                            <Label Text="Cover" Grid.Row="1" Grid.Column="4" StyleClass="PageMenuLabel"/>
+                            <Button Text="&#xf1f8;" 
+                                FontFamily="_FA900" 
+                                StyleClass="PageMenuButton"                            
+                                FontSize="14"
+                                Grid.Row="0"
+                                Grid.Column="5"
+                                Command="{Binding Delete}" />
+                            <Label Text="Delete" Grid.Row="1" Grid.Column="5" StyleClass="PageMenuLabel"/>
+                        </Grid>
+                        
+                        <c:LabelRegular Text="{Binding ComicBook.Writers}" StyleId="DetailsPageBodyAuthor"/>
+                        <c:LabelBlack Text="{Binding ComicBook.FullTitle}" StyleId="DetailsPageBodyTitle" />
+                        <c:LabelBlack Text="{Binding ComicBook.Series}" StyleId="DetailsPageBodySeries" />
+                        <c:LabelRegular Text="{Binding ComicBook.Note}" StyleId="DetailsPageBodyNote" />
+                    </StackLayout>
+                                   
+                </Grid>
+            </Frame.Content>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

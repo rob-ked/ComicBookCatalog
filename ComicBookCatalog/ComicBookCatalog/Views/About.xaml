@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:c="clr-namespace:ComicBookCatalog.Views.Controls"
+             xmlns:vm="clr-namespace:ComicBookCatalog.ViewModels"
+             mc:Ignorable="d"            
+             Shell.NavBarIsVisible="False" 
+             x:Class="ComicBookCatalog.Views.About"
+             StyleId="AboutPage">
+    <ContentPage.BindingContext>
+        <vm:About />
+    </ContentPage.BindingContext>    
+    <ContentPage.Content>
+        <Frame IsVisible="{Binding IsLoaded}" StyleId="AboutPageWrapper">
+            <Frame.Content>
+                <Grid ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button Text="&#xf053;" 
+                        FontFamily="_FA900" 
+                        StyleClass="PageBackButton"
+                        Grid.Row="0" 
+                        Command="{Binding GoBack}"
+                        HorizontalOptions="Start" />
+                    <StackLayout Grid.Row="1">
+                        <Label Text="&#xf075;" FontFamily="_FA900" FontSize="120" Margin="10" />
+                        <c:LabelLight StyleId="AboutHeader" Text="ComicBookCatalog" />
+                        <c:LabelRegular StyleClass="AboutPageVersion" Text="{Binding ApplicationInfo.Version}" />
+                        <c:LabelBold StyleClass="AboutPageInfo" Text="{Binding ApplicationInfo.PlatformName}" />
+                        <c:LabelRegular StyleClass="AboutPageInfo" Text="{Binding ApplicationInfo.PlatformVersion}" />
+                        <c:LabelRegular StyleClass="AboutPageInfo" Text="{Binding ApplicationInfo.PlatformModel}" />
+                    </StackLayout>
+                </Grid>
+            </Frame.Content>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

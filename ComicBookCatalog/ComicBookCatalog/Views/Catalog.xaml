@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ComicBookCatalog.ViewModels"
+             xmlns:c="clr-namespace:ComicBookCatalog.Views.Controls"
+             mc:Ignorable="d"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             StyleId="CatalogPage"  
+             Shell.NavBarIsVisible="True" 
+             Title="{Binding Title}"
+             x:Class="ComicBookCatalog.Views.Catalog">
+    <Shell.SearchHandler>
+        <c:ComicBooksSearchHandler x:Name="searchHandler" 
+                                   SearchBoxVisibility="Collapsible" 
+                                   FontFamily="_FRegular" 
+                                   FontSize="12" 
+                                   Placeholder="Search..."
+                                   ShowsResults="False" 
+                                   Command="{Binding FilterByQuery}"
+                                   CommandParameter="{Binding Query, Source={x:Reference searchHandler}}"/>
+    </Shell.SearchHandler>
+    <ContentPage.BindingContext>
+        <vm:Catalog />
+    </ContentPage.BindingContext>    
+    <ContentPage.Content>
+        <StackLayout CompressedLayout.IsHeadless="True">
+            <StackLayout
+                IsVisible="{Binding IsLoading}"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="Center">
+                <StackLayout VerticalOptions="CenterAndExpand">
+                    <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                        VerticalOptions="Center"
+                        WidthRequest="70" 
+                        HeightRequest="70"/>
+                    <c:LabelRegular Text="Please wait" StyleId="CatalogPageLoadingText" />
+                </StackLayout>
+            </StackLayout>
+            <Grid IsVisible="{Binding IsLoaded}" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>                                
+                <ListView Grid.Column="0"                          
+                          ItemsSource="{Binding ComicBooks}"
+                          IsPullToRefreshEnabled="True"
+                          IsRefreshing="{Binding IsComicBooksListRefreshing}"
+                          RefreshCommand="{Binding RefreshComicBooks}"
+                          SeparatorVisibility="None"
+                          IsGroupingEnabled="True"
+                          GroupDisplayBinding="{Binding Index}"
+                          SelectedItem="{Binding SelectedComicBook}"                          
+                          HasUnevenRows="True"
+                          ItemTapped="ItemTapped">
+                    <ListView.Footer>
+                        <c:LabelLight FontSize="12" Margin="10" Text="{Binding Counter}" />
+                    </ListView.Footer>
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding Index}" 
+                                       StyleClass="CatalogPageComicBookIndex" 
+                                       FontFamily="_FBlack"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10, 10, 0, 10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="30" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>                                        
+                                        <RowDefinition Height="22" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ffimageloading:CachedImage Source="{Binding CoverImage}" 
+                                           HeightRequest="50" 
+                                           WidthRequest="50" 
+                                           Grid.Column="0" 
+                                           Grid.RowSpan="3"
+                                           LoadingPlaceholder="placeholder.jpg"
+                                           ErrorPlaceholder="placeholder.jpg" 
+                                           Margin="0,0,10,5">
+                                        <ffimageloading:CachedImage.Transformations>
+                                            <fftransformations:CircleTransformation BorderSize="5" BorderHexColor="#333333" />                                        
+                                        </ffimageloading:CachedImage.Transformations>
+                                    </ffimageloading:CachedImage>
+                                    <c:LabelRegular Text="{Binding Title}"                                                      
+                                        StyleClass="CatalogPageComicBookTitle" 
+                                        Grid.Column="1" 
+                                        Grid.Row="0" />
+                                    <c:LabelBold Text="{Binding SeriesAndBrand}" 
+                                        StyleClass="CatalogPageComicBookSeries" 
+                                        Grid.Column="1" 
+                                        Grid.Row="1" />
+                                    <StackLayout Grid.Column="1" Grid.Row="2">
+                                        <Grid ColumnSpacing="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>                                            
+                                            <Label Grid.Column="0" FontFamily="_FA900" 
+                                                   Text="&#xf004;" IsVisible="{Binding Favorite}" 
+                                                   StyleClass="CatalogPageComicBookIconFavorite" />
+                                            <Label Grid.Column="1" FontFamily="_FA900" 
+                                                   Text="&#xf02e;" IsVisible="{Binding OnBookShelf}" 
+                                                   StyleClass="CatalogPageComicBookIconOnBookShelf" />
+                                        </Grid>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="2"
+                                                 Grid.RowSpan="3" 
+                                                 IsVisible="{Binding IsVolumeVisible}" 
+                                                 StyleClass="CatalogPageComicBookVolumeWrapper">
+                                        <c:LabelRegular Text="VOL" 
+                                                      StyleClass="CatalogPageComicBookVolumeHeader" />
+                                        <c:LabelBold Text="{Binding Volume}"  
+                                                      StyleClass="CatalogPageComicBookVolume" />                                    
+                                    </StackLayout>                                    
+                                </Grid>                                
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- menu boczne -->
+                <Grid Grid.Column="1" StyleId="CatalogPageMenu">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button Text="&#xf055;" 
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"
+                            Grid.Row="0"
+                            Command="{Binding OpenView}"
+                            CommandParameter="create" />
+                    <Label Text="Create" Grid.Row="1" StyleClass="PageMenuLabel"/>
+                    <Button Text="&#xf574;" 
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"
+                            Grid.Row="2" 
+                            Command="{Binding PrepareImport}" />
+                    <Label Text="Import" Grid.Row="3" StyleClass="PageMenuLabel"/>
+                    <Button Text="&#xf004;" 
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"                            
+                            Grid.Row="4" Command="{Binding DisplayFavorites}" />
+                    <Label Text="Favorites" Grid.Row="5" StyleClass="PageMenuLabel"/>                    
+                    <Button Text="&#xf0ae;" 
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"                            
+                            Grid.Row="6" Command="{Binding DisplayOnShelf}"/>
+                    <Label Text="On shelf" Grid.Row="7" StyleClass="PageMenuLabel"/>
+                    <Button Text="&#xf5fd;" 
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"                            
+                            Grid.Row="8" Command="{Binding SelectGroupMode}"/>
+                    <Label Text="Grouping" Grid.Row="9" StyleClass="PageMenuLabel"/>
+                    <Button Text="&#xf0c5;" 
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"                            
+                            Grid.Row="10" Command="{Binding DisplaySeries}"/>
+                    <Label Text="Series" Grid.Row="11" StyleClass="PageMenuLabel"/>
+                    <Button Text="&#xf1f9;" 
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"                            
+                            Grid.Row="12" Command="{Binding DisplayBrands}"/>
+                    <Label Text="Brands" Grid.Row="13" StyleClass="PageMenuLabel"/>
+                    <Button Text="&#xf075;" 
+                            Margin="0,75,0,0"
+                            FontFamily="_FA900" 
+                            StyleClass="PageMenuButton"                            
+                            Grid.Row="14" 
+                            Command="{Binding OpenView}"
+                            CommandParameter="about" 
+                            VerticalOptions="End" />                    
+                </Grid>
+            </Grid>
+
+            <Picker IsVisible="false" 
+                    ItemsSource="{Binding Series}" 
+                    x:Name="SeriesPicker" 
+                    SelectedItem="{Binding SelectedSeries}" />
+            <Picker IsVisible="false" 
+                    ItemsSource="{Binding Brands}" 
+                    x:Name="BrandsPicker" 
+                    SelectedItem="{Binding SelectedBrand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

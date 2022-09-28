@@ -1,0 +1,193 @@
+﻿/* Style stron */
+
+#AboutPage {
+    background-color: #3e517a;
+    color: #fff;
+    text-align: center;
+}
+
+#AboutPageWrapper {
+    margin: 10;
+    border-radius: 5;
+    background: rgba(255, 255, 255, .3);
+    padding: 0;
+}
+
+#AboutHeader {
+    font-size: 24;
+    margin: 10;    
+}
+
+#AboutPageSubHeader {
+    font-size: 16;
+}
+
+.AboutPageVersion {
+    font-size: 16;
+    margin-bottom: 30;
+}
+
+.AboutPageInfo {
+    font-size: 12;
+}
+
+#CatalogPage {
+    padding: 0;
+    color: #333;
+}
+
+#CatalogPageLoadingText {
+    font-size: 14;
+    color: #2D2A32
+}
+
+#CatalogPageMenu {
+    background: #f5f5f5;
+}
+
+.CatalogPageComicBookIndex {
+    text-align: left;
+    padding: 3 10;
+    color: #333;
+}
+
+.CatalogPageComicBookTitle {
+    font-size: 18;
+    color: #333;
+}
+
+.CatalogPageComicBookSeries {
+    font-size: 12;
+    color: #333;
+}
+
+.CatalogPageComicBookCollection {
+    font-size: 12;
+    color: #688B58;
+}
+
+.CatalogPageComicBookVolumeWrapper {
+    text-align: center;
+    color: #3e517a;
+}
+ 
+.CatalogPageComicBookVolume {
+    font-size: 14;    
+}
+
+.CatalogPageComicBookVolumeHeader {
+    font-size: 10;
+}
+
+.CatalogPageComicBookIconFavorite {
+    font-size: 10;
+    margin-right: 6;
+    margin-top: 3;
+    color: #e84118;
+}
+
+.CatalogPageComicBookIconOnBookShelf {
+    font-size: 10;
+    margin-right: 6;
+    margin-top: 3;
+    color: #3e517a;
+}
+
+#DetailsPage {
+    padding: 0;
+    background-color: #3e517a;
+}
+
+#DetailsPageWrapper {
+    margin: 10;
+    border-radius: 5;
+    background: rgba(255, 255, 255, .3);
+    padding: 0;
+}
+
+#DetailsPageContentHeader {
+    padding: 20, 20, 20, 50;
+}
+
+#DetailsPageHeaderPublisher {
+    font-size: 18;
+    color: #000;
+}
+
+#DetailPageHeaderBrand {
+    font-size: 14;
+    color: #2c3e50;
+}
+
+#DetailPageHeaderCollection {
+    font-size: 14;
+    color: #2c3e50;
+}
+
+#DetailsPageHeaderPublisher {
+    font-size: 18;
+    color: #000;
+}
+
+#DetailPageHeaderBrand {
+    font-size: 14;
+    color: #2c3e50;
+}
+
+#DetailPageHeaderCollection {
+    font-size: 14;
+    color: #2c3e50;
+}
+
+#DetailsPageContentBody {
+    text-align: center;
+    color: #333;   
+    background: #fff;
+}
+
+#DetailsPageContentMenu {    
+    background: #f5f5f5;
+}
+
+#DetailsPageBodySeries {
+    font-size: 14;
+    color: #2c3e50;
+    margin-bottom: 20;
+    text-align: center;
+}
+
+#DetailsPageBodyTitle {
+    font-size: 24;
+    color: #333;
+    text-align: center;
+}
+
+#DetailsPageBodyAuthor {
+    margin-top: 10;
+    font-size: 14;
+    color: #000;
+    text-align: center;
+}
+
+#EditPage {
+    background-color: #3e517a;
+    color: #3E517A;
+    text-align: left;
+}
+
+#EditPageToggleButton {
+    background: #3E517A;
+    color: #fff;
+    margin: 20 0;
+    border-radius: 0;
+}
+
+.EditPageLabel {
+    color: #333;
+}
+
+#CoverPage {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
